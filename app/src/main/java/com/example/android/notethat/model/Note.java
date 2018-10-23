@@ -1,4 +1,4 @@
-package com.example.android.notethat;
+package com.example.android.notethat.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
