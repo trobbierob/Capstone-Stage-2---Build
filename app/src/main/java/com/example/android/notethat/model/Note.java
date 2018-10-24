@@ -1,13 +1,22 @@
 package com.example.android.notethat.model;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import android.support.annotation.NonNull;
+
+@Entity(tableName = "note_table")
 public class Note implements Parcelable {
 
     private int id;
 
-    private String noteText;
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    @ColumnInfo(name = "noteText")
+    private String mNoteText;
 
     public int getId() {
         return id;
@@ -17,19 +26,19 @@ public class Note implements Parcelable {
         this.id = id;
     }
 
-    public String getNoteText() {
-        return noteText;
+    public String getmNoteText() {
+        return mNoteText;
     }
 
-    public void setNoteText(String noteText) {
-        this.noteText = noteText;
+    public void setmNoteText(String mNoteText) {
+        this.mNoteText = mNoteText;
     }
 
     @Override
     public String toString() {
         return "Note{" +
                 "id=" + id +
-                ", noteText='" + noteText + '\'' +
+                ", mNoteText='" + mNoteText + '\'' +
                 '}';
     }
 
@@ -41,12 +50,12 @@ public class Note implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
-        dest.writeString(noteText);
+        dest.writeString(mNoteText);
     }
 
     protected Note(Parcel in) {
         id = in.readInt();
-        noteText = in.readString();
+        mNoteText = in.readString();
     }
 
     public static final Creator<Note> CREATOR = new Creator<Note>() {
