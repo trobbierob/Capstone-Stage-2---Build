@@ -11,12 +11,15 @@ import android.support.annotation.NonNull;
 @Entity(tableName = "note_table")
 public class Note implements Parcelable {
 
+    public Note() {
+    }
+
     private int id;
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @NonNull
     @ColumnInfo(name = "noteText")
-    private String mNoteText;
+    public String mNoteText;
 
     public int getId() {
         return id;
@@ -26,6 +29,7 @@ public class Note implements Parcelable {
         this.id = id;
     }
 
+    @NonNull
     public String getmNoteText() {
         return mNoteText;
     }
