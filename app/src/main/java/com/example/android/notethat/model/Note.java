@@ -14,6 +14,10 @@ public class Note implements Parcelable {
     public Note() {
     }
 
+    public Note(@NonNull String mNoteText) {
+        this.mNoteText = mNoteText;
+    }
+
     private int id;
 
     @PrimaryKey
