@@ -7,6 +7,7 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.example.android.notethat.R;
 import com.example.android.notethat.model.Note;
 
 @Database(entities = {Note.class}, version = 1)
@@ -22,7 +23,7 @@ public abstract class NoteDatabase extends RoomDatabase {
                 if(INSTANCE == null){
                     //Create Note database
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            NoteDatabase.class, "note_database")
+                            NoteDatabase.class, context.getString(R.string.note_database_string))
                             .addCallback(RoomDatabaseCallback)
                             .build();
                 }
@@ -49,11 +50,11 @@ public abstract class NoteDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(final Void... voids) {
-            mDao.deleteAll();
-            Note note = new Note("What's the word?");
-            mDao.insert(note);
-            note = new Note("Big Bird?");
-            mDao.insert(note);
+            //mDao.deleteAll();
+            //Note note = new Note("What's the word?");
+            //mDao.insert(note);
+            //note = new Note("Big Bird?");
+            //mDao.insert(note);
             return null;
         }
     }

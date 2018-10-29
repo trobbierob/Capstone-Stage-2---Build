@@ -44,9 +44,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             Note currentNote = mNotes.get(position);
             noteViewHolder.noteItemTextView.setText(currentNote.getmNoteText());
         } else {
-            noteViewHolder.noteItemTextView.setText("Nah fam");
+            noteViewHolder.noteItemTextView.setText("");
         }
 
+    }
+
+    void setNotes(List<Note> notes){
+        mNotes = notes;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -58,6 +63,4 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         }
 
     }
-
-
 }

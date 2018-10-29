@@ -10,6 +10,7 @@
         android:id="@+id/note_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Tippy Tay"/>
+        tools:text="@string/sample_text_string"
+        android:maxLines="1"/>
 
 </LinearLayout>

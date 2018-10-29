@@ -3,4 +3,8 @@
     <string name="delete_tb">Delete</string>
     <string name="save_tb">Save</string>
     <string name="deleted_string">Deleted</string>
+    <string name="saved_string">Saved!</string>
+    <string name="not_saved_string">Not Saved</string>
+    <string name="sample_text_string">Sample Text</string>
+    <string name="note_database_string">note_database</string>
 </resources>
