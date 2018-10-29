@@ -46,7 +46,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         } else {
             noteViewHolder.noteItemTextView.setText("");
         }
-
     }
 
     void setNotes(List<Note> notes){
@@ -61,6 +60,5 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         } else {
             return 0;
         }
-
     }
 }

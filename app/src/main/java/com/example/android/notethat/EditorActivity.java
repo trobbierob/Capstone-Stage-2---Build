@@ -13,7 +13,7 @@ import es.dmoral.toasty.Toasty;
 
 public class EditorActivity extends AppCompatActivity {
 
-    EditText mNoteContent;
+    private EditText mNoteContent;
 
     public static final String EXTRA_REPLY = "stuff";
 
