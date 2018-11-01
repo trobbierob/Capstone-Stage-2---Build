@@ -14,21 +14,13 @@ import java.util.List;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
 
-    public class NoteViewHolder extends RecyclerView.ViewHolder{
-
-        private final TextView noteItemTextView;
-
-        private NoteViewHolder(@NonNull View itemView) {
-            super(itemView);
-            noteItemTextView = itemView.findViewById(R.id.note_tv);
-        }
-    }
-
     private final LayoutInflater mInflater;
+    private Context mContext;
     private List<Note> mNotes;
 
     NoteAdapter(Context context){
         mInflater = LayoutInflater.from(context);
+        mContext = context;
     }
 
     @NonNull
@@ -59,6 +51,16 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             return mNotes.size();
         } else {
             return 0;
+        }
+    }
+
+    public class NoteViewHolder extends RecyclerView.ViewHolder{
+
+        private final TextView noteItemTextView;
+
+        private NoteViewHolder(@NonNull View itemView) {
+            super(itemView);
+            noteItemTextView = itemView.findViewById(R.id.note_tv);
         }
     }
 }
