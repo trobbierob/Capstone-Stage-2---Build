@@ -9,11 +9,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.android.notethat.db.NoteDatabase;
 import com.example.android.notethat.db.NoteViewModel;
 import com.example.android.notethat.model.Note;
 
@@ -23,8 +25,10 @@ import es.dmoral.toasty.Toasty;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
+    private static final int NEW_NOTE_ACTIVITY_REQUEST_CODE = 1;
     private NoteViewModel mNoteViewModel;
+
+    private NoteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +44,26 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mNoteViewModel.getmAllWords().observe(this, new Observer<List<Note>>() {
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+                                  RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction) {
+                db = NoteDatabase.getDatabase(getApplicationContext());
+                AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        int position = viewHolder.getAdapterPosition();
+                    }
+                });
+            }
+        }).attachToRecyclerView(recyclerView);
+
+        mNoteViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
             @Override
             public void onChanged(@Nullable List<Note> notes) {
                 adapter.setNotes(notes);
@@ -51,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
+                startActivityForResult(intent, NEW_NOTE_ACTIVITY_REQUEST_CODE);
             }
         });
     }
@@ -66,9 +89,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int menuItemSelected = item.getItemId();
         if (menuItemSelected == R.id.action_bar_delete_all) {
-            //new DepopulateDbAsync(INSTANCE).execute();
-        } else {
-            // Do nothing
+            mNoteViewModel.deleteAll();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -76,16 +97,18 @@ public class MainActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+        if (requestCode == NEW_NOTE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             Note note = new Note(data.getStringExtra(EditorActivity.EXTRA_REPLY));
             mNoteViewModel.insert(note);
         } else if (resultCode == RESULT_CANCELED){
             Toasty.info(this,
                     getString(R.string.not_saved_string),
-                    Toast.LENGTH_LONG, true).show();
+                    Toast.LENGTH_SHORT, true).show();
         } else {
+            Note note = new Note(data.getStringExtra(EditorActivity.EXTRA_REPLY));
+            mNoteViewModel.delete(note);
             Toasty.error(this, getString(R.string.deleted_string),
-                    Toast.LENGTH_LONG, true).show();
+                    Toast.LENGTH_SHORT, true).show();
         }
     }
 }

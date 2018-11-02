@@ -18,9 +18,9 @@ public class Note implements Parcelable {
         this.mNoteText = mNoteText;
     }
 
+    @PrimaryKey(autoGenerate = true)
     private int id;
 
-    @PrimaryKey
     @NonNull
     @ColumnInfo(name = "noteText")
     public String mNoteText;

@@ -23,6 +23,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         mContext = context;
     }
 
+    public List<Note> getmNotes() {
+        return mNotes;
+    }
+
+    public void setmNotes(List<Note> mNotes) {
+        this.mNotes = mNotes;
+    }
+
     @NonNull
     @Override
     public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {

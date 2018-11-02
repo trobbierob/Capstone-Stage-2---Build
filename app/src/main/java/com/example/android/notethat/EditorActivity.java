@@ -43,7 +43,7 @@ public class EditorActivity extends AppCompatActivity {
                 intent.putExtra(EXTRA_REPLY, noteContent);
                 setResult(RESULT_OK, intent);
                 Toasty.success(this, getString(R.string.saved_string),
-                        Toast.LENGTH_LONG, true).show();
+                        Toast.LENGTH_SHORT, true).show();
             }
             finish();
         } else if(menuItemSelected == R.id.action_bar_delete){
