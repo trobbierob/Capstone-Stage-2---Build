@@ -81,8 +81,14 @@ public class EditorActivity extends AppCompatActivity {
             }
             finish();
         } else if(menuItemSelected == R.id.action_bar_delete){
-            Intent intent = new Intent();
-            setResult(RESULT_FIRST_USER, intent);
+            if (NOTE_KEY){
+                String noteContent = mNoteContent.getText().toString().trim();
+                Note note = new Note(PASSING_NOTE_INT, noteContent);
+                mNoteViewModel.delete(note);
+            } else {
+                Intent intent = new Intent();
+                setResult(RESULT_FIRST_USER, intent);
+            }
             finish();
         }
         return super.onOptionsItemSelected(item);
