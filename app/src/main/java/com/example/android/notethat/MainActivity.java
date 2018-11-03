@@ -25,6 +25,7 @@ import es.dmoral.toasty.Toasty;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
     private static final int NEW_NOTE_ACTIVITY_REQUEST_CODE = 1;
     private NoteViewModel mNoteViewModel;
 
@@ -101,8 +102,7 @@ public class MainActivity extends AppCompatActivity {
             Note note = new Note(data.getStringExtra(EditorActivity.EXTRA_REPLY));
             mNoteViewModel.insert(note);
         } else if (resultCode == RESULT_CANCELED){
-            Toasty.info(this,
-                    getString(R.string.not_saved_string),
+            Toasty.info(this, getString(R.string.not_saved_string),
                     Toast.LENGTH_SHORT, true).show();
         } else {
             Note note = new Note(data.getStringExtra(EditorActivity.EXTRA_REPLY));

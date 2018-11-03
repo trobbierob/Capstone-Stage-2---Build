@@ -9,4 +9,6 @@
     <string name="note_database_string">note_database</string>
     <string name="write_something_hint_string">Write something...</string>
     <string name="delete_all_string">Delete All</string>
+    <string name="new_note_string">New Note</string>
+    <string name="edit_note_string">Edit Note</string>
 </resources>
