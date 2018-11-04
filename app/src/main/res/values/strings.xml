@@ -7,7 +7,7 @@
     <string name="not_saved_string">Not Saved</string>
     <string name="sample_text_string">Sample Text</string>
     <string name="note_database_string">note_database</string>
-    <string name="write_something_hint_string">Write something...</string>
+    <string name="write_something_hint_string">Write something&#8230;</string>
     <string name="delete_all_string">Delete All</string>
     <string name="new_note_string">New Note</string>
     <string name="edit_note_string">Edit Note</string>

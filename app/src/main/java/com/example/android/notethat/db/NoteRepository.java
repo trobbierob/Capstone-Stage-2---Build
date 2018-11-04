@@ -23,11 +23,11 @@ public class NoteRepository {
         return mAllNotes;
     }
 
-    public void insert (Note note){
+    void insert(Note note){
         new insertAsyncTask(mNoteDoa).execute(note);
     }
 
-    public void update (Note note){
+    void update(Note note){
         new updateAsyncTask(mNoteDoa).execute(note);
     }
 
@@ -42,7 +42,6 @@ public class NoteRepository {
     private static class insertAsyncTask extends AsyncTask<Note, Void, Void>{
 
         private NoteDao mAsyncTaskDao;
-
         insertAsyncTask(NoteDao dao) {
             mAsyncTaskDao = dao;
         }
@@ -56,7 +55,6 @@ public class NoteRepository {
     private static class updateAsyncTask extends AsyncTask<Note, Void, Void>{
 
         private NoteDao mAsyncTaskDao;
-
         updateAsyncTask(NoteDao dao) {
             mAsyncTaskDao = dao;
         }
@@ -70,7 +68,6 @@ public class NoteRepository {
     private static class deleteAsyncTask extends AsyncTask<Note, Void, Void>{
 
         private NoteDao mAsyncTaskDao;
-
         deleteAsyncTask(NoteDao dao) {
             mAsyncTaskDao = dao;
         }
@@ -84,7 +81,6 @@ public class NoteRepository {
     private static class deleteAllAsyncTask extends AsyncTask<Void, Void, Void>{
 
         private NoteDao mAsyncTaskDao;
-
         deleteAllAsyncTask(NoteDao dao) {
             mAsyncTaskDao = dao;
         }

@@ -18,16 +18,12 @@ import es.dmoral.toasty.Toasty;
 public class EditorActivity extends AppCompatActivity {
 
     private static final String TAG = EditorActivity.class.getSimpleName();
-    private EditText mNoteContent;
-
+    private static final String PASSING_NOTE_KEY = "passing_note_key";
     public static final String EXTRA_REPLY = "stuff";
-    public static final String EXTRA_INT_REPLY = "stuff_with_numbers";
-    private static final int RESULT_EDITED = 3;
-    public static final String PASSING_NOTE_KEY = "passing_note_key";
+    private NoteViewModel mNoteViewModel;
     private int PASSING_NOTE_INT = 0;
     private boolean NOTE_KEY = false;
-
-    private NoteViewModel mNoteViewModel;
+    private EditText mNoteContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

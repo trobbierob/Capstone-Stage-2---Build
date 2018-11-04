@@ -4,23 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.android.notethat.model.Note;
 
 import java.util.List;
 
-import es.dmoral.toasty.Toasty;
-
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
 
     private static final String TAG = NoteAdapter.class.getSimpleName();
-    public static final String PASSING_NOTE_KEY = "passing_note_key";
+    private static final String PASSING_NOTE_KEY = "passing_note_key";
     private final LayoutInflater mInflater;
     private Context mContext;
     private List<Note> mNotes;
@@ -49,20 +45,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     public void onBindViewHolder(@NonNull NoteViewHolder noteViewHolder, int position) {
         final Note currentNote = mNotes.get(position);
         if (mNotes != null) {
-
             noteViewHolder.noteItemTextView.setText(currentNote.getmNoteText());
         }
 
         noteViewHolder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toasty.info(mContext,
-                        currentNote.getmNoteText(),
-                        Toast.LENGTH_SHORT, true).show();
-
-                Log.i(TAG, "id is: " + currentNote.getId());
-                Log.i(TAG, "note text is: " + currentNote.getmNoteText());
-
                 Intent intent = new Intent(mContext, EditorActivity.class);
                 intent.putExtra(PASSING_NOTE_KEY, currentNote);
                 mContext.startActivity(intent);

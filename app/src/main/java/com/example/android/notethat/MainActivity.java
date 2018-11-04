@@ -9,13 +9,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.android.notethat.db.NoteDatabase;
 import com.example.android.notethat.db.NoteViewModel;
 import com.example.android.notethat.model.Note;
 
@@ -29,40 +27,18 @@ public class MainActivity extends AppCompatActivity {
     private static final int NEW_NOTE_ACTIVITY_REQUEST_CODE = 1;
     private NoteViewModel mNoteViewModel;
 
-    private NoteDatabase db;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         mNoteViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
-
         final Intent intent = new Intent(this, EditorActivity.class);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         final NoteAdapter adapter = new NoteAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
-                                  RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction) {
-                db = NoteDatabase.getDatabase(getApplicationContext());
-                AppExecutors.getInstance().diskIO().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        int position = viewHolder.getAdapterPosition();
-                    }
-                });
-            }
-        }).attachToRecyclerView(recyclerView);
 
         mNoteViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
             @Override
