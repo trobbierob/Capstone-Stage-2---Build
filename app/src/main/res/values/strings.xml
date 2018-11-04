@@ -11,4 +11,7 @@
     <string name="delete_all_string">Delete All</string>
     <string name="new_note_string">New Note</string>
     <string name="edit_note_string">Edit Note</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="a_fresh_note_string">A Fresh Note</string>
 </resources>

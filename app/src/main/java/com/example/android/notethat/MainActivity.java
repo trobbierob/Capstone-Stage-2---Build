@@ -1,7 +1,9 @@
 package com.example.android.notethat;
 
+import android.appwidget.AppWidgetManager;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.example.android.notethat.db.NoteViewModel;
@@ -76,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == NEW_NOTE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             Note note = new Note(data.getStringExtra(EditorActivity.EXTRA_REPLY));
+            changeWidgetText(note.getmNoteText());
             mNoteViewModel.insert(note);
         } else if (resultCode == RESULT_CANCELED){
             Toasty.info(this, getString(R.string.not_saved_string),
@@ -86,5 +90,13 @@ public class MainActivity extends AppCompatActivity {
             Toasty.error(this, getString(R.string.deleted_string),
                     Toast.LENGTH_SHORT, true).show();
         }
+    }
+
+    private void changeWidgetText(String noteContent) {
+        RemoteViews view = new RemoteViews(getPackageName(), R.layout.note_widget_provider);
+        view.setTextViewText(R.id.appwidget_last_note, noteContent);
+        ComponentName theWidget = new ComponentName(this, NoteWidgetProvider.class);
+        AppWidgetManager manager = AppWidgetManager.getInstance(this);
+        manager.updateAppWidget(theWidget, view);
     }
 }
