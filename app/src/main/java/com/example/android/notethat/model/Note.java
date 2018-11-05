@@ -14,7 +14,7 @@ public class Note implements Parcelable {
 
     public Note() {
     }
-
+    @Ignore
     public Note(@NonNull String mNoteText) {
         this.mNoteText = mNoteText;
     }

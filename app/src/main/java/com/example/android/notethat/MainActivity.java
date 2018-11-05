@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.android.notethat.db.NoteViewModel;
 import com.example.android.notethat.model.Note;
 import com.google.android.gms.ads.AdListener;
@@ -27,6 +28,7 @@ import com.google.android.gms.ads.MobileAds;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
         // Initialize MobileAds
@@ -89,6 +92,10 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    public void forceCrash(View view) {
+        throw new RuntimeException("This is a crash");
     }
 
     @Override
