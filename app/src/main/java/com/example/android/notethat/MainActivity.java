@@ -19,6 +19,9 @@ import android.widget.Toast;
 
 import com.example.android.notethat.db.NoteViewModel;
 import com.example.android.notethat.model.Note;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 
 import java.util.List;
@@ -30,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final int NEW_NOTE_ACTIVITY_REQUEST_CODE = 1;
     private NoteViewModel mNoteViewModel;
+    private InterstitialAd mInterstitial;
+    private AdRequest request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,14 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize MobileAds
         MobileAds.initialize(this, "ca-app-pub-3170570918400197~4823456895");
+
+        // Initialize Interstitial Ad
+        mInterstitial = new InterstitialAd(this);
+        mInterstitial.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        request = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        mInterstitial.loadAd(request);
 
         mNoteViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
         final Intent intent = new Intent(this, EditorActivity.class);
@@ -58,8 +71,23 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (mInterstitial.isLoaded()) {
+                    mInterstitial.show();
+                } else {
+                    startActivityForResult(intent, NEW_NOTE_ACTIVITY_REQUEST_CODE);
+                }
+
+            }
+        });
+
+        mInterstitial.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                // Load Ad & start EditorActivity
+                mInterstitial.loadAd(request);
                 startActivityForResult(intent, NEW_NOTE_ACTIVITY_REQUEST_CODE);
             }
+
         });
     }
 
