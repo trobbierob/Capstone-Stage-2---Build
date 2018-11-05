@@ -43,4 +43,8 @@ dependencies {
     // Lifecycle components
     implementation "android.arch.lifecycle:extensions:$archLifecycleVersion"
     annotationProcessor "android.arch.lifecycle:compiler:$archLifecycleVersion"
+
+    // AdMob
+    implementation 'com.google.android.gms:play-services-ads:17.0.0'
+
 }

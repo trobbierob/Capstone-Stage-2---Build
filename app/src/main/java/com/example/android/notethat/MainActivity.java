@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.android.notethat.db.NoteViewModel;
 import com.example.android.notethat.model.Note;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.List;
 
@@ -34,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Initialize MobileAds
+        MobileAds.initialize(this, "ca-app-pub-3170570918400197~4823456895");
 
         mNoteViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
         final Intent intent = new Intent(this, EditorActivity.class);
